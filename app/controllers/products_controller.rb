@@ -15,10 +15,10 @@ class ProductsController < ApplicationController
 
   # POST /products
   def create
-    @product = Product.new(product_params)
-
-    @product.image_64 = "data:image/jpg;base64,#{params[:image_64]}"
-    @product.save
+    @product = Product.create(product_params)
+    
+    image64 = "data:image/jpg;base64,#{params[:image_64]}"
+    @product.product_image.attach(data: image64)
 
     render json: @product
   end
@@ -45,6 +45,7 @@ class ProductsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def product_params
-      params.permit(:name, :price, :description, :user_id)
+      params.require(:product).permit(:name, :price, :description, :user_id)
     end
+
 end

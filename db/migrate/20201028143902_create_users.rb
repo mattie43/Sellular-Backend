@@ -5,7 +5,6 @@ class CreateUsers < ActiveRecord::Migration[6.0]
       t.string :password
       t.string :bio
       t.string :uid
-      t.string :image_64
 
       t.timestamps
     end

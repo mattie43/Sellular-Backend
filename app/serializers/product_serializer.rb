@@ -1,5 +1,5 @@
 class ProductSerializer < ActiveModel::Serializer
-  attributes :id, :name, :price, :description, :image_64, :user, :post_date
+  attributes :id, :name, :price, :description, :user, :post_date, :img_url
 
   def post_date    
     current_day = Date.today
@@ -7,8 +7,13 @@ class ProductSerializer < ActiveModel::Serializer
     (current_day - created_day.to_date).to_i
   end
 
-  def user
-    ActiveModelSerializers::SerializableResource.new(object.user,  each_serializer: UserSerializer)
+  def img_url
+    object.get_image_url
   end
+
+  # def user
+  #   # ActiveModelSerializers::SerializableResource.new(object.user,  each_serializer: UserSerializer)
+  #   object.user
+  # end
 
 end

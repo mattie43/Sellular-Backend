@@ -19,11 +19,6 @@ class UsersController < ApplicationController
 
     exists = User.find_by(email: @user.email)
 
-    # if params[:file]
-    #   # The data is a file upload coming from <input type="file" />
-    #   @user.image.attach(params[:file])
-    # end
-
     if exists
       render json: exists, status: :ok
     elsif @user.save
