@@ -61,6 +61,7 @@ ActiveRecord::Schema.define(version: 2020_10_30_173733) do
     t.string "category_one"
     t.string "category_two"
     t.string "category_three"
+    t.string "categories", default: [], array: true
     t.boolean "sold", default: false
     t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
