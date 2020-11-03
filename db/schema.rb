@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_28_144506) do
+ActiveRecord::Schema.define(version: 2020_10_30_173733) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,14 +36,32 @@ ActiveRecord::Schema.define(version: 2020_10_28_144506) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
+  create_table "conversations", force: :cascade do |t|
+    t.integer "buyer"
+    t.integer "seller"
+    t.integer "product"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.string "message"
+    t.bigint "user_id"
+    t.bigint "conversation_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["conversation_id"], name: "index_messages_on_conversation_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
+  end
+
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.string "price"
     t.string "description"
-    t.string "image_64"
     t.string "category_one"
     t.string "category_two"
     t.string "category_three"
+    t.boolean "sold", default: false
     t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -54,8 +72,6 @@ ActiveRecord::Schema.define(version: 2020_10_28_144506) do
     t.string "email"
     t.string "password"
     t.string "bio"
-    t.string "uid"
-    t.string "image_64"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

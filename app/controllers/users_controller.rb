@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :update, :destroy]
+  before_action :set_user, only: [:show, :update, :destroy, :user_products]
 
   # GET /users
   def index
@@ -9,8 +9,28 @@ class UsersController < ApplicationController
   end
 
   # GET /users/1
+  def user_products
+    render json: @user.products
+  end
+
   def show
-    render json: @user
+    conversations = Conversation.where("seller = #{@user.id} or buyer = #{@user.id}")
+    mapped_convos = conversations.map { |convo|
+      product = Product.find(convo.product)
+      {
+        conversation: convo,
+        buyer: User.find(convo.buyer),
+        product: {
+          id: product.id,
+          name: product.name,
+          price: product.price,
+          description: product.description,
+          img_url: product.get_image_url
+        },          
+        seller: User.find(convo.seller),
+      }
+    }
+    render json: mapped_convos
   end
 
   # POST /users

@@ -1,5 +1,5 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :email, :bio, :uid, :products
+  attributes :id, :email, :bio, :products
 
   def products
     # add three categories together
