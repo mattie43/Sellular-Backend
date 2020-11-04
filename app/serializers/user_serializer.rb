@@ -1,5 +1,9 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :email, :bio, :products
+  attributes :id, :username, :email, :bio, :products, :join_date
+
+  def join_date
+    object.created_at.strftime("%m-%d-%Y")
+  end
 
   def products
     # add three categories together

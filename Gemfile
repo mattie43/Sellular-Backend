@@ -11,6 +11,7 @@ gem 'httparty'
 gem 'active_storage_base64'
 gem 'cloudinary'
 gem 'activestorage-cloudinary-service'
+gem 'email_validator'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.3', '>= 6.0.3.4'

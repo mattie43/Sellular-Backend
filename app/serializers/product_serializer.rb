@@ -6,7 +6,6 @@ class ProductSerializer < ActiveModel::Serializer
   end
 
   def post_date
-    byebug
     current_day = Date.today
     created_day = object.created_at.to_date
     (current_day - created_day.to_date).to_i
