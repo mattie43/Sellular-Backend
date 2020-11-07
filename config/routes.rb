@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :messages
   resources :products
   get 'users/:id/products', to: 'users#user_products'
+  get 'users/:id/convos', to: 'users#convos'
   post 'users/signup', to: 'users#signup'
   post 'users/login', to: 'users#login'
   resources :users

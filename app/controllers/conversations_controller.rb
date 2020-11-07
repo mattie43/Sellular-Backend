@@ -15,18 +15,33 @@ class ConversationsController < ApplicationController
 
   # POST /conversations
   def create
-
     conversation = Conversation.find_or_create_by(seller: params[:seller], buyer: params[:buyer], product: params[:product])
 
-    render json: conversation
+    product = Product.find(conversation.product)
+    buyer = User.find(conversation.buyer)
+    seller = User.find(conversation.seller)
+    return_convo = {
+      conversation: conversation,
+      buyer: {
+        id: buyer.id,
+        username: buyer.username,
+        img_url: buyer.get_image_url
+      },
+      product: {
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        description: product.description,
+        img_url: product.get_image_url
+      },          
+      seller: {
+        id: seller.id,
+        username: seller.username,
+        img_url: seller.get_image_url
+      },
+    }
 
-    # @conversation = Conversation.new(conversation_params)
-
-    # if @conversation.save
-    #   render json: @conversation, status: :created, location: @conversation
-    # else
-    #   render json: @conversation.errors, status: :unprocessable_entity
-    # end
+    render json: return_convo
   end
 
   # PATCH/PUT /conversations/1

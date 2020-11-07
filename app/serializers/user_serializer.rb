@@ -1,5 +1,9 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :username, :email, :bio, :products, :join_date
+  attributes :id, :username, :bio, :products, :join_date, :img_url
+
+  def img_url
+    object.get_image_url
+  end
 
   def join_date
     object.created_at.strftime("%m-%d-%Y")

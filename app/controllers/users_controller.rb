@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :update, :destroy, :user_products]
+  before_action :set_user, only: [:show, :update, :destroy, :user_products, :convos]
 
   # GET /users
   def index
@@ -13,13 +13,19 @@ class UsersController < ApplicationController
     render json: @user.products
   end
 
-  def show
+  def convos
     conversations = Conversation.where("seller = #{@user.id} or buyer = #{@user.id}")
     mapped_convos = conversations.map { |convo|
       product = Product.find(convo.product)
+      buyer = User.find(convo.buyer)
+      seller = User.find(convo.seller)
       {
         conversation: convo,
-        buyer: User.find(convo.buyer),
+        buyer: {
+          id: buyer.id,
+          username: buyer.username,
+          img_url: buyer.get_image_url
+        },
         product: {
           id: product.id,
           name: product.name,
@@ -27,7 +33,11 @@ class UsersController < ApplicationController
           description: product.description,
           img_url: product.get_image_url
         },          
-        seller: User.find(convo.seller),
+        seller: {
+          id: seller.id,
+          username: seller.username,
+          img_url: seller.get_image_url
+        },
       }
     }
     render json: mapped_convos
@@ -55,7 +65,11 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/1
   def update
-    if @user.update(user_params)
+    if params[:image_64]
+      image64 = "data:image/jpg;base64,#{params[:image_64]}"
+      @user.profile_image.attach(data: image64)
+      render json: @user
+    elsif @user.update(user_params)
       render json: @user
     else
       render json: @user.errors, status: :unprocessable_entity

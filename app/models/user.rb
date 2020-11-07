@@ -8,6 +8,10 @@ class User < ApplicationRecord
   has_many :products
 
   def get_image_url
-    url_for(self.profile_image)
-  end  
+    if self.profile_image.attached?
+      url_for(self.profile_image)
+    else
+      rand(1..2) == 1 ? "https://www.w3schools.com/howto/img_avatar2.png" :  "https://www.w3schools.com/howto/img_avatar.png"
+    end
+  end
 end

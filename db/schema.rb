@@ -73,7 +73,7 @@ ActiveRecord::Schema.define(version: 2020_10_30_173733) do
     t.string "email"
     t.string "username"
     t.string "password"
-    t.string "bio"
+    t.string "bio", default: "Fill in some information about yourself!"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
