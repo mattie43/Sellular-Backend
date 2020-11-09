@@ -24,7 +24,11 @@ class UsersController < ApplicationController
         buyer: {
           id: buyer.id,
           username: buyer.username,
-          img_url: buyer.get_image_url
+          img_url: buyer.get_image_url,
+          rating: buyer.rating,
+          rating_count: buyer.rating_count,
+          bio: buyer.bio,
+          join_date: buyer.created_at.strftime("%m-%d-%Y")
         },
         product: {
           id: product.id,
@@ -33,12 +37,17 @@ class UsersController < ApplicationController
           description: product.description,
           img_url: product.get_image_url,
           sold: product.sold,
-          rated: product.rated
+          rated: product.rated,
+          post_date: product.post_date
         },          
         seller: {
           id: seller.id,
           username: seller.username,
-          img_url: seller.get_image_url
+          img_url: seller.get_image_url,
+          rating: seller.rating,
+          rating_count: seller.rating_count,
+          bio: seller.bio,
+          join_date: seller.created_at.strftime("%m-%d-%Y")
         },
       }
     }
