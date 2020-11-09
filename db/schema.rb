@@ -63,6 +63,7 @@ ActiveRecord::Schema.define(version: 2020_10_30_173733) do
     t.string "category_three"
     t.string "categories", default: [], array: true
     t.boolean "sold", default: false
+    t.boolean "rated", default: false
     t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -73,6 +74,8 @@ ActiveRecord::Schema.define(version: 2020_10_30_173733) do
     t.string "email"
     t.string "username"
     t.string "password"
+    t.integer "rating_count", default: 0
+    t.integer "rating", default: 0
     t.string "bio", default: "Fill in some information about yourself!"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

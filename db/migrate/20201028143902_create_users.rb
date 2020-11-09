@@ -4,6 +4,8 @@ class CreateUsers < ActiveRecord::Migration[6.0]
       t.string :email
       t.string :username
       t.string :password
+      t.integer :rating_count, default: 0
+      t.integer :rating, default: 0
       t.string :bio, default: "Fill in some information about yourself!"
 
       t.timestamps

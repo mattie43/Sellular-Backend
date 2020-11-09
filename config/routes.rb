@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   resources :conversations
   resources :messages
+  patch 'products/:id/rating', to: 'products#rating_update'
   resources :products
   get 'users/:id/products', to: 'users#user_products'
   get 'users/:id/convos', to: 'users#convos'

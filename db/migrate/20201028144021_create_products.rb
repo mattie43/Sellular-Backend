@@ -9,6 +9,7 @@ class CreateProducts < ActiveRecord::Migration[6.0]
       t.string :category_three
       t.string :categories, array: true, default: []
       t.boolean :sold, default: false
+      t.boolean :rated, default: false
       t.belongs_to :user
 
       t.timestamps

@@ -31,7 +31,9 @@ class UsersController < ApplicationController
           name: product.name,
           price: product.price,
           description: product.description,
-          img_url: product.get_image_url
+          img_url: product.get_image_url,
+          sold: product.sold,
+          rated: product.rated
         },          
         seller: {
           id: seller.id,

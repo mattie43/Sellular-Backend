@@ -1,5 +1,5 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :username, :bio, :products, :join_date, :img_url
+  attributes :id, :username, :bio, :products, :join_date, :img_url, :rating
 
   def img_url
     object.get_image_url

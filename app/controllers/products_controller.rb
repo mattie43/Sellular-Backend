@@ -4,8 +4,8 @@ class ProductsController < ApplicationController
   # GET /products
   def index
     @products = Product.all
-
-    render json: @products
+    excludeSold = @products.filter{|product| product.sold == false}
+    render json: excludeSold
   end
 
   # GET /products/1
@@ -21,6 +21,21 @@ class ProductsController < ApplicationController
     @product.product_image.attach(data: image64)
 
     render json: @product
+  end
+
+  def rating_update
+    seller = User.find(params[:seller])
+    product = Product.find(params[:id])
+    rating = params[:rating]
+
+    product.rated = true
+    product.save
+
+    seller.rating_count = seller.rating_count + 1
+    seller.rating = ((seller.rating + rating) / seller.rating_count).round()
+    seller.save
+
+    render json: product
   end
 
   # PATCH/PUT /products/1
